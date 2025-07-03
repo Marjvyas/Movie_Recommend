@@ -4,17 +4,28 @@ import numpy as np
 import pickle
 from flask_cors import CORS
 
+
+import os
+import gdown
+
+
 app = Flask(__name__)
 CORS(app)
 
-def load_data():
-    try:
-        with open('recommend_system.pkl', 'rb') as f:
-            data=pickle.load(f)
-        return data
-    except FileNotFoundError:
-        return None
-data=load_data()
+model_path = "backend/recommend_system.pkl"
+file_id = "1zh3_JiIC-HAaRLBpQhDZ8FQ0vq1_dlmT" 
+
+# Check if the model file exists, if not, download it
+if not os.path.exists(model_path):
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, model_path, quiet=False)
+    print("✅ Model downloaded")
+
+# Load the model
+
+with open(model_path, "rb") as f:
+    data = pickle.load(f)
+    print("✅ Model loaded")
 df=data['movie_df']
 similarity=data['similarity']
 
