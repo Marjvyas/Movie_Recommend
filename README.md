@@ -60,17 +60,17 @@ cd Movie_Recommend
 ```
 
 ## Backend Setup (Flask + Model)
-
+```
 cd backend
 pip install -r requirements.txt
 python backend.py
-
+```
 ## Frontend Setup (React)
-
+```
 cd frontend
 npm install
 npm run dev
-
+```
 ## 🧠 How It Works
 
 - The app uses a content-based filtering model trained on movie metadata.
@@ -79,7 +79,7 @@ npm run dev
 
 ## 📦 Dependencies
 ## Backend (Python)
-
+```
 Flask
 pandas
 numpy
@@ -87,13 +87,13 @@ gdown
 scikit-learn
 pickle
 flask-cors
-
+```
 ## Frontend (React)
-
+```
 react
 axios
 vite
-
+```
 ## 🙋‍♂️ Author
 Marj Vyas
 
