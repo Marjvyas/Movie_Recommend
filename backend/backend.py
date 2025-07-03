@@ -28,6 +28,8 @@ with open(model_path, "rb") as f:
     print("✅ Model loaded")
 df=data['movie_df']
 similarity=data['similarity']
+df["title_lower"] = df["title"].str.lower()
+
 
 
 
@@ -37,10 +39,14 @@ def recommend():
     if not movie_name:
         return jsonify({'error': 'No movie name provided'}), 400
 
-    if movie_name not in df['title'].values:
+    movie_name_lc = movie_name.lower()
+    match_row = df[df["title_lower"] == movie_name_lc]
+
+    if match_row.empty:
         return jsonify({'error': 'Movie not found'}), 404
 
-    movie_list=sorted(list(enumerate(similarity[df[df['title']==movie_name].index[0]])), reverse=True, key=lambda x: x[1])[:6]
+    movie_list = sorted(list(enumerate(similarity[match_row.index[0]])), reverse=True, key=lambda x: x[1])[1:6]
+
     l=[]
     for i in movie_list:
         l.append(df.iloc[i[0]].title)
